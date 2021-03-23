@@ -3,6 +3,7 @@
 This report is for the final course project for the Statistical Inference course, part of the John Hopkins Statistics and Machine Learning Specialization on Coursera.
 
 The project had 2 parts:
+
 Part 1: 
 Analyze the exponential distribution in R (rexp(n, lambda) with lambda = 0.2) 
 and compare it with the Central Limit Theorem.
