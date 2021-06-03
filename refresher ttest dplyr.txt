@@ -1,0 +1,60 @@
+
+
+install.packages("gapminder")
+
+
+levels(gapminder$country) #list of factors
+mean(gapminder$lifeExp)
+hist(gapminder$lifeExp)
+
+boxplot(gapminder$lifeExp ~ gapminder$continent)
+
+#splyr helps slicing and grouping data
+
+install.packages("dplyr")
+library(dplyr)
+
+gapminder %>%
+	select(country, lifeExp) %>%
+	filter(country == "South Africa"  | 
+		country == "Ireland") %>%
+	group_by(country) %>%
+	summarise(Average_life = mean(lifeExp))
+
+
+df1 <- gapminder %>%
+	select(country, lifeExp) %>%
+	filter(country == "South Africa"  | 
+		country == "Ireland")
+
+df2 <- gapminder %>%
+	filter(gdpPercap < 50000)
+
+
+df3_life <- gapminder %>%
+	group_by(country) %>%
+	summarise(Average_life = mean(lifeExp)) 
+
+
+df3_gdp <- gapminder %>%
+	group_by(country) %>%
+	summarise(Average_gdp = mean(gdpPercap))
+
+df3 <- merge(df3_life,df3_gdp,by="country")
+
+plot(x = df3$Average_life, y = df3$Average_gdp)
+text(x = df3$Average_life, y = df3$Average_gdp, labels=df3$country,data=gapminder, cex=0.9, font=2, pos=4)
+
+df3_ordered <- df3[order(df3$Average_gdp),]  #ordered by GDP
+
+==================================
+# p-value - prob that null hypothesis is correct
+# null hypothesis in this case, no difference. so, low prop means REJECT
+
+t.test(data = df1, lifeExp ~ country)
+
+
+===========
+df3_ordered <- df3[order(df3$Average_gdp),]
+
+
